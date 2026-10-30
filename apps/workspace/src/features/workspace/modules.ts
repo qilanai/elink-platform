@@ -1,0 +1,80 @@
+import {
+  Home,
+  MessageSquare,
+  ListTodo,
+  FolderOpen,
+  Image,
+  Video,
+  PanelsTopLeft,
+} from "lucide-react";
+
+// Navigation metadata describes integration status, never provider or price configuration.
+export const modules = [
+  {
+    id: "home",
+    path: "/",
+    name: "首页",
+    icon: Home,
+    section: "workspace",
+    ready: true,
+    description: "从一个想法开始，连接你的创作。",
+  },
+  {
+    id: "chat",
+    path: "/chat",
+    name: "AI 对话",
+    icon: MessageSquare,
+    section: "workspace",
+    ready: true,
+    description: "与不同模型对话，整理想法、写作与研究。",
+  },
+  {
+    id: "tasks",
+    path: "/tasks",
+    name: "任务",
+    icon: ListTodo,
+    section: "workspace",
+    ready: false,
+    description: "在一个地方查看图片、视频与建站任务的进度。",
+  },
+  {
+    id: "resources",
+    path: "/resources",
+    name: "资源",
+    icon: FolderOpen,
+    section: "workspace",
+    ready: false,
+    description: "让图片、视频与创作素材在不同应用间流动。",
+  },
+  {
+    id: "images",
+    path: "/images",
+    href: "/apps/studio/?mode=image",
+    name: "图像创作",
+    icon: Image,
+    section: "create",
+    ready: true,
+    description: "把文字变成画面，探索风格、构图与灵感。",
+  },
+  {
+    id: "videos",
+    path: "/videos",
+    href: "/apps/studio/?mode=video",
+    name: "视频创作",
+    icon: Video,
+    section: "create",
+    ready: true,
+    description: "从一个镜头开始，把想法写成流动的故事。",
+  },
+  {
+    id: "sites",
+    path: "/sites",
+    name: "网站创作",
+    icon: PanelsTopLeft,
+    section: "create",
+    ready: false,
+    description: "用对话构建页面，预览、修改并发布你的作品。",
+  },
+] as const;
+
+export type WorkspaceModule = (typeof modules)[number];

@@ -1,0 +1,6 @@
+{
+  "name": "@elink/contracts",
+  "private": true,
+  "type": "module",
+  "exports": {".": "./src/applications.ts"}
+}

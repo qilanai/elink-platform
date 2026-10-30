@@ -1,0 +1,81 @@
+# Overlay apps/studio/docker-compose.deploy.yml. All paths use the platform root
+# through --project-directory; scripts/workspace/dev.py supplies generated secrets.
+services:
+  postgres:
+    mem_limit: 768m
+  redis:
+    mem_limit: 256m
+  migrate:
+    image: ${STUDIO_BASE_IMAGE}
+  yingce-agent:
+    image: elink-studio-agent:dev
+    build:
+      context: ./apps/studio
+      dockerfile: yingce-agent/Dockerfile
+    environment:
+      MAX_CONCURRENT_SESSIONS: "2"
+    mem_limit: 768m
+    restart: "no"
+  backend:
+    image: elink-studio-backend:dev
+    build:
+      context: .
+      dockerfile: ops/dev/studio.Dockerfile
+      args:
+        STUDIO_BASE_IMAGE: ${STUDIO_BASE_IMAGE}
+    environment:
+      CANVAS_WORKER_CONCURRENCY: "1"
+      CANVAS_NEW_API_URL: ${NEW_API_INTERNAL_URL}
+      CANVAS_PUBLIC_BASE_URL: ${NEW_API_PUBLIC_URL}
+      CANVAS_CORS_ORIGINS: http://127.0.0.1:5173,http://localhost:5173,http://127.0.0.1:3000,http://localhost:3000
+      CANVAS_CHANNEL_CONCURRENCY: "1"
+      CANVAS_FFMPEG_PATH: /usr/bin/ffmpeg
+      CANVAS_WHISPER_BASE_URL: ${CANVAS_WHISPER_BASE_URL:-}
+      CANVAS_UPDATER_TOKEN: ""
+      CANVAS_SHUTDOWN_TIMEOUT: 60s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes: !override
+      - backend-data:/data
+    cpus: 2
+    mem_limit: 2g
+    stop_grace_period: 70s
+    restart: "no"
+  web:
+    image: elink-studio-web:dev
+    build:
+      context: ./apps/studio
+      dockerfile: Dockerfile
+      args:
+        BUILD_COMMIT: ${STUDIO_COMMIT}
+        VITE_NEW_API_HOSTED: "true"
+        VITE_STUDIO_BASE_PATH: /apps/studio/
+        VITE_CANVAS_BACKEND_URL: /apps/studio/api
+    ports: !override
+      - "127.0.0.1:${STUDIO_PORT:-3101}:3000"
+    volumes: !reset []
+    restart: "no"
+  platform:
+    image: elink-platform-api:dev
+    build:
+      context: .
+      dockerfile: services/platform/Dockerfile
+    environment:
+      STUDIO_PUBLIC_URL: http://localhost:${STUDIO_PORT:-3101}
+      STUDIO_HEALTH_URL: http://web:3000/api/health/ready
+      NEW_API_PUBLIC_URL: ${NEW_API_PUBLIC_URL}
+      NEW_API_HEALTH_URL: ${NEW_API_INTERNAL_URL}/api/status
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    mem_limit: 128m
+  console:
+    image: elink-platform-console:dev
+    build:
+      context: .
+      dockerfile: apps/console/Dockerfile
+    ports:
+      - "127.0.0.1:${CONSOLE_PORT:-3100}:8080"
+    depends_on:
+      platform:
+        condition: service_healthy
+    mem_limit: 128m

@@ -1,0 +1,7 @@
+.git
+.local
+**/node_modules
+**/dist
+apps/studio
+.env*
+**/*.log

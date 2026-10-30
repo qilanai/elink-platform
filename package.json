@@ -1,0 +1,35 @@
+{
+  "name": "elink-platform",
+  "private": true,
+  "packageManager": "bun@1.4.2",
+  "workspaces": [
+    "apps/console",
+    "packages/contracts",
+    "apps/workspace"
+  ],
+  "scripts": {
+    "dev:console": "bun run --cwd apps/console dev",
+    "build": "bun run --cwd apps/console build",
+    "typecheck": "bun run --cwd apps/console typecheck",
+    "test:e2e": "playwright test",
+    "dev:init": "python3 scripts/workspace/dev.py init",
+    "dev:up": "python3 scripts/workspace/dev.py up",
+    "dev:down": "python3 scripts/workspace/dev.py down",
+    "dev:status": "python3 scripts/workspace/dev.py status",
+    "dev:check": "python3 scripts/workspace/dev.py check",
+    "source:version": "python3 scripts/workspace/dev.py source-version",
+    "dev:chat": "bun run --cwd apps/workspace dev",
+    "build:chat": "bun run --cwd apps/workspace build",
+    "typecheck:chat": "bun run --cwd apps/workspace typecheck",
+    "test:chat": "bun run --cwd apps/workspace test",
+    "test:chat:e2e": "playwright test --config apps/workspace/playwright.config.ts",
+    "dev:app": "bun run --cwd apps/workspace dev",
+    "build:app": "bun run --cwd apps/workspace build",
+    "typecheck:app": "bun run --cwd apps/workspace typecheck",
+    "test:app": "bun run --cwd apps/workspace test",
+    "test:app:e2e": "playwright test --config apps/workspace/playwright.config.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2"
+  }
+}

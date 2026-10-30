@@ -1,0 +1,7 @@
+services:
+  new-api:
+    environment:
+      EXT_STUDIO_UPSTREAM_URL: http://host.docker.internal:3101
+      EXT_CHAT_UPSTREAM_URL: http://host.docker.internal:3102
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

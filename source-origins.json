@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "studio": {
+    "maintenance": "owned",
+    "sourceRepository": "https://github.com/ddcat-ai/open-ai-canvas.git",
+    "importedCommit": "4e2d7e69248b551098170d1c8838862785a8542c",
+    "importedVersion": "v1.6.8.1",
+    "path": "apps/studio",
+    "licenseFile": "apps/studio/LICENSE",
+    "noticeFile": "apps/studio/NOTICE"
+  },
+  "newApi": {
+    "repository": "https://github.com/qilanai/new-api.git",
+    "reviewedCommit": "96759cb2d894ad1e65752b456bc20670107dc611",
+    "integration": "http",
+    "maintenance": "upstream-fork"
+  },
+  "chat": {
+    "maintenance": "owned",
+    "sourceRepository": "https://github.com/lobehub/lobehub.git",
+    "importedCommit": "7789340ead61db66e67d1e58bd8ace2458885311",
+    "importedVersion": "v0.162.25",
+    "scope": "Browser conversation components, adapted to new-api; no automatic upstream sync",
+    "path": "apps/workspace",
+    "licenseFile": "apps/workspace/LICENSE",
+    "noticeFile": "apps/workspace/NOTICE"
+  }
+}

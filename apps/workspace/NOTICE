@@ -1,0 +1,31 @@
+Elink Chat — self-maintained browser subset of LobeHub / LobeChat.
+
+Source: https://github.com/lobehub/lobehub
+Version: v0.162.25
+Commit: 7789340ead61db66e67d1e58bd8ace2458885311
+Copyright (c) 2023 - current LobeHub. MIT License (see LICENSE).
+
+Imported/adapted source mappings:
+- src/features/Conversation/SkeletonList.tsx: copied from
+  src/features/Conversation/components/SkeletonList.tsx.
+- src/features/Conversation/ChatItem.tsx: adapted from
+  src/features/Conversation/components/ChatItem/index.tsx; replaces upstream
+  stores, plugin renderers and actions with typed props and local UI actions.
+- src/features/Conversation/index.tsx: adapted from
+  src/features/Conversation/components/VirtualizedList/index.tsx and AutoScroll.tsx;
+  retains virtualized messages and streaming scroll behavior, uses local props.
+
+The original @lobehub/ui ChatItem presentation has been replaced by Elink's
+compact message layout; the adapted source mappings and MIT notices remain.
+Other packages retain their own licenses as distributed.
+
+Elink modifications, 2026-10-22:
+Vite browser entry, conversation persistence, new-api session/model/relay adapter,
+stream parsing, responsive workspace, export, system prompts and local tests.
+The session adapter is Elink-owned code carried forward from the previous chat
+integration; it is not an upstream LobeHub authentication implementation.
+No LobeHub server, account, billing, desktop, marketplace or telemetry code is imported.
+No automatic upstream update or submodule is configured.
+
+The current upstream community license is NOT the license of this imported MIT
+snapshot. Review licenses again before importing code from later versions.
