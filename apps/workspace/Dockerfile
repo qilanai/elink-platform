@@ -1,7 +1,6 @@
 FROM oven/bun:1.4.2 AS build
 WORKDIR /workspace
 COPY package.json bun.lock ./
-COPY apps/console/package.json apps/console/package.json
 COPY packages/contracts/package.json packages/contracts/package.json
 COPY apps/workspace/package.json apps/workspace/package.json
 RUN bun install --frozen-lockfile

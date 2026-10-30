@@ -18,7 +18,6 @@ new-api 是模型服务与管理控制台。渠道、模型广场、API Key、�
 | `apps/studio/web` | 画布、时间线和媒体编辑器，React 19 | 保持现有工程与完整页面，通过工作台入口打开 |
 | `apps/studio/backend` 与 Worker | 项目、媒体资源、生成任务、Agent 执行 | 本轮不迁移表、不改任务执行链；后续提供适配接口 |
 | `services/platform` | 当前只有服务健康与应用目录诊断 | 将来演进为工作台 API 聚合服务；当前不视为已经有权限、任务、资源能力 |
-| `apps/console` | 原迁移诊断页 | 保留诊断用途，不升级为第二套用户入口 |
 | 独立 `new-api` 仓库 | 账号、模型、渠道、分组、限流、计费 | 增加工作台文档代理与旧地址跳转，沿用既有聊天 API |
 
 `apps/workspace` 暂留 React 18，以兼容现有导入组件。Studio 与诊断页独立构建，不强制把 React 19 或画布依赖打入首页。TypeScript 的 React 类型和 Vite 的 React 运行时解析限定在工作台自身版本，避免 monorepo 混用两套 React。

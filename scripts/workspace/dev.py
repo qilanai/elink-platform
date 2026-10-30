@@ -63,13 +63,9 @@ def init():
         print("Preserving existing .local/dev.env and local credentials.")
         return
     overrides = read_env(ROOT / ".env") if (ROOT / ".env").exists() else {}
-    console_port = overrides.get("CONSOLE_PORT", "3100")
     studio_port = overrides.get("STUDIO_PORT", "3101")
-    for port in (console_port, studio_port):
-        if not port.isdigit() or not 1024 <= int(port) <= 65535:
-            raise ValueError("Local ports must be integers between 1024 and 65535")
-    if console_port == studio_port:
-        raise ValueError("Console and Studio must have different ports")
+    if not studio_port.isdigit() or not 1024 <= int(studio_port) <= 65535:
+        raise ValueError("Local ports must be integers between 1024 and 65535")
     public_url = overrides.get("NEW_API_PUBLIC_URL", "http://localhost:3000").rstrip("/")
     internal_url = overrides.get("NEW_API_INTERNAL_URL", "http://host.docker.internal:3000").rstrip("/")
     for value in (public_url, internal_url):
@@ -78,7 +74,7 @@ def init():
             raise ValueError("new-api URLs must be HTTP(S) origins without credentials or paths")
     password = secrets.token_hex(24)
     values = {
-        "CONSOLE_PORT": console_port, "STUDIO_PORT": studio_port,
+        "STUDIO_PORT": studio_port,
         "NEW_API_PUBLIC_URL": public_url, "NEW_API_INTERNAL_URL": internal_url,
         "CANVAS_IMAGE_TAG": "owned-dev", "CANVAS_BACKEND_IMAGE": "elink-studio-backend:dev",
         "CANVAS_WEB_IMAGE": "elink-studio-web:dev", "CANVAS_YINGCE_AGENT_IMAGE": "elink-studio-agent:dev",
@@ -113,8 +109,6 @@ def compose(*args, **kwargs):
 def check():
     values = read_env(ENV_FILE)
     endpoints = {
-        "Console": f"http://localhost:{values['CONSOLE_PORT']}/",
-        "Platform API": f"http://localhost:{values['CONSOLE_PORT']}/api/health/ready",
         "Studio": f"http://localhost:{values['STUDIO_PORT']}/api/health/ready",
         "new-api": values["NEW_API_PUBLIC_URL"] + "/api/status",
     }

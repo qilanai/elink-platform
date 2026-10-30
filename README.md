@@ -4,7 +4,7 @@
 
 Elink 自维护的创作应用。new-api 的 `/apps` 用列表展示 Studio、建站等应用；Studio 在新浏览器标签页打开 `/apps/studio/`，完整加载本仓库的 Open AI Canvas 页面、画布、项目、素材和时间线。建站目前标记为“即将推出”，尚无可启动的实现。
 
-Canvas 已作为普通源码导入，保留原始许可证、NOTICE 与署名，不再使用子模块或自动同步上游。出处记录在 `source-origins.json`。现有 `apps/console` 仅是开发诊断入口，正式入口由独立的 new-api 仓库提供。
+Canvas 已作为普通源码导入，保留原始许可证、NOTICE 与署名，不再使用子模块或自动同步上游。出处记录在 `source-origins.json`。正式入口由独立的 new-api 仓库与 `apps/workspace` 提供。
 
 ## 运行边界
 

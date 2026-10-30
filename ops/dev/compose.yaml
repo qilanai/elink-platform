@@ -68,14 +68,3 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     mem_limit: 128m
-  console:
-    image: elink-platform-console:dev
-    build:
-      context: .
-      dockerfile: apps/console/Dockerfile
-    ports:
-      - "127.0.0.1:${CONSOLE_PORT:-3100}:8080"
-    depends_on:
-      platform:
-        condition: service_healthy
-    mem_limit: 128m
